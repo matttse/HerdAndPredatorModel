@@ -13,3 +13,8 @@ def home():
 @main.route("/about")
 def about():
     return render_template('about.html', title='About')
+
+def start():
+	# create start function
+def stop():
+	# create stop function
