@@ -10,44 +10,27 @@
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 
-    <title>ultralightisright</title>
+    <title>Herd and Predator Model</title>
 </head>
 <body class="body">
     <header class="site-header">
       <nav id="layout_navbar" class="navbar navbar-dark fixed-top navbar-expand-lg">
         <div class="container">
-          <a id="home_title" class="navbar-brand mr-4" href="/">ultralight is right</a>
+          <a id="home_title" class="navbar-brand mr-4" href="/">Herd and Predator Model</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
             </div>
-            <!-- Navbar Right Side -->
-            <div class="navbar-nav">
-              {% if current_user.is_authenticated %}
-                <a class="nav-item nav-link" href="{{ url_for('users.account') }}">Account</a>
-                <a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>
-              {% else %}
-                <a class="nav-item nav-link" href="{{ url_for('users.login') }}">Login</a>
-                <a class="nav-item nav-link" href="{{ url_for('users.register') }}">Register</a>
-              {% endif %}
-            </div>
+
           </div>
         </div>
       </nav>
     </header>
     <main role="main" class="container">
       
-          {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-              {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">
-                  {{ message }}
-                </div>
-              {% endfor %}
-            {% endif %}
-          {% endwith %}
+
           {% block content %}{% endblock %}
           
     </main>
@@ -66,7 +49,7 @@
           console.log('development');
       } else  {
           document.getElementById("layout_navbar").style = "background-color: #3C3C3C;";
-          document.getElementById("home_title").innerText = "ultralightisright";
+          document.getElementById("home_title").innerText = "Herd and Predator Model";
       }
     </script>
 </body>
