@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block content %}
+<div id="home-content" class="container my-auto mx-auto py-3 px-1">
+   
+    <article class="media content-section">
+    	 <div class="form-group">
+                number of generations to run:
+
+                {% if form.numberOfGenerations.errors %}
+                    {{ form.numberOfGenerations(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.numberOfGenerations.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.numberOfGenerations(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+		
+	</article>
+
+
+</div>
+{% endblock content %}
+
+
