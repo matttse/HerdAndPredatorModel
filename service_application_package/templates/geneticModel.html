@@ -1,24 +1,28 @@
 {% extends "layout.html" %}
 {% block content %}
 <div id="home-content" class="container my-auto mx-auto py-3 px-1">
-   
-    <article class="media content-section">
-    	 <div class="form-group">
-                number of generations to run:
-
-                {% if form.numberOfGenerations.errors %}
-                    {{ form.numberOfGenerations(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.numberOfGenerations.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.numberOfGenerations(class="form-control form-control-lg") }}
-                {% endif %}
-            </div>
+   <form method="POST" action="">
 		
-	</article>
+		    <fieldset class="form-group">
+				<div class="form-group">
+				    number of generations to run:
+
+				    {% if form.numberOfGenerations.errors %}
+				        {{ form.numberOfGenerations(class="form-control form-control-lg is-invalid") }}
+				        <div class="invalid-feedback">
+				            {% for error in form.numberOfGenerations.errors %}
+				                <span>{{ error }}</span>
+				            {% endfor %}
+				        </div>
+				    {% else %}
+				        {{ form.numberOfGenerations(class="form-control form-control-lg") }}
+				    {% endif %}
+				</div>
+			</fieldset>
+			<div class="form-group">
+				{{ form.start(class="btn btn-outline-info") }}
+			</div>
+		</form>
 
 
 </div>
