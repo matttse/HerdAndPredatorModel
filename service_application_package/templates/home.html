@@ -3,9 +3,32 @@
 <div id="home-content" class="container my-auto mx-auto py-3 px-1">
 
 	<div class="container mx-auto my-auto py-1 px-1">
-		
-        <a class="btn btn-secondary" href="{{ url_for('main.start', numberOfGenerations=100) }}">Start</a>
-		
+		<div id="home-content" class="container my-auto mx-auto py-3 px-1">
+		   <form method="POST" action="">
+				
+				    <fieldset class="form-group">
+						<div class="form-group">
+						    number of generations to run:
+
+						    {% if form.numberOfGenerations.errors %}
+						        {{ form.numberOfGenerations(class="form-control form-control-lg is-invalid") }}
+						        <div class="invalid-feedback">
+						            {% for error in form.numberOfGenerations.errors %}
+						                <span>{{ error }}</span>
+						            {% endfor %}
+						        </div>
+						    {% else %}
+						        {{ form.numberOfGenerations(class="form-control form-control-lg") }}
+						    {% endif %}
+						</div>
+					</fieldset>
+					<div class="form-group">
+						{{ form.start(class="btn btn-outline-info") }}
+					</div>
+				</form>
+
+
+		</div>
 	</div>
 
 
