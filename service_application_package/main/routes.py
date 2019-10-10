@@ -10,8 +10,11 @@ def home(numberOfGenerations):
 	form = GenerationNumberAndStartForm()
 
 	return render_template('home.html', numberOfGenerations=form.numberOfGenerations, form=form)
-# @main.route("/geneticModel/<int:numberOfGenerations>")
-# def start(numberOfGenerations):
+@main.route("/start")
+def start():
 	# create start function
+	form = GenerationNumberAndStartForm()
+
+	return render_template('geneticModel.html', numberOfGenerations=form.numberOfGenerations)
 # def stop():
 	# create stop function
