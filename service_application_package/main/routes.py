@@ -66,8 +66,13 @@ def start():
 	    
 	#run graphics 
 	ani = animation.FuncAnimation(fig, animate, interval=1)
-	plot_url = base64.b64encode(ani.getvalue()).decode()
-	return '<img src="data:image/png;base64,{}">'.format(plot_url)
+	ani.save('/static/images/new_plot.gif', writer='imagemagick', fps=30)
+
+	# plot_url = base64.b64encode(ani.getvalue()).decode()
+	# return '<img src="data:image/png;base64,{}">'.format(plot_url)
+	return render_template('geneticModel.html', numberOfGenerations=form.numberOfGenerations, name = fig, url ='/static/images/new_plot.png')
+	# plot_url = base64.b64encode(ani.getvalue()).decode()
+	# return '<img src="data:image/png;base64,{}">'.format(plot_url)
 	# return render_template('geneticModel.html', numberOfGenerations=form.numberOfGenerations)
 # def stop():
 	# create stop function
