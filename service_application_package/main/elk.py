@@ -22,7 +22,7 @@ class Elk(Animal):
         neighbours = [cell for cell in self.get_neighbouring_cells() if cell.contained_animal == None]
         if len(neighbours) != 0:
             kid_cell = npr.choice(neighbours)
-            self.master.preys.append(Prey(self.master, kid_cell))
+            self.master.preys.append(Elk(self.master, kid_cell))
             self.proliferated_since = 0
 #            print 'prey proliferated'
 #        else:
