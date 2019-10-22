@@ -2,8 +2,9 @@
 implementation of the universe, which is everything living insde the predator  prey model
 """
 
-from cell import Cell
-from animals import Predator, Prey
+from service_application_package.main.cell import Cell
+from service_application_package.main.elk import Elk
+from service_application_package.main.wolf import Wolf
 
 import numpy.random as npr
 import pickle as pk
@@ -34,13 +35,13 @@ class Universe():
             randomCell = self.cells[npr.randint(self.SIZE)][npr.randint(self.SIZE)]
             while not randomCell.contained_animal == None:
                 randomCell = self.cells[npr.randint(self.SIZE)][npr.randint(self.SIZE)]
-            self.predators.append(Predator(self, randomCell))
+            self.predators.append(Wolf(self, randomCell))
         #init preys
         for i in range(initial_prey_num):
             randomCell = self.cells[npr.randint(self.SIZE)][npr.randint(self.SIZE)]
             while not randomCell.contained_animal == None:
                 randomCell = self.cells[npr.randint(self.SIZE)][npr.randint(self.SIZE)]
-            self.preys.append(Prey(self, randomCell))
+            self.preys.append(Elk(self, randomCell))
         
 
     def move_animals(self):
@@ -53,7 +54,7 @@ class Universe():
 #        print moved_predators, 'of them have alredy moved'
         for predator in self.predators:
             neighbouring_cells = predator.get_neighbouring_cells()
-            neighbouring_preys = [cell for cell in neighbouring_cells if isinstance(cell.contained_animal, Prey)]
+            neighbouring_preys = [cell for cell in neighbouring_cells if isinstance(cell.contained_animal, Elk)]
             neighbouring_empties = [cell for cell in neighbouring_cells if cell.contained_animal==None]
             if len(neighbouring_preys) == 1:
                 predator.move_to_cell(neighbouring_preys[0])

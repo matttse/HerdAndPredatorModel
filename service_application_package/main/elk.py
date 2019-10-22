@@ -1,4 +1,4 @@
-from service_application_package.main.animal import Animal
+from service_application_package.main.animals import Animal
 import numpy.random as npr
 
 class Elk(Animal):
