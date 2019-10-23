@@ -10,7 +10,7 @@ import matplotlib.animation as animation
 
 #input parameters
 GRID_SIZE = 50
-INITIAL_PREDATORS = 50
+INITIAL_PREDATORS = 5
 INITIAL_PREYS = 50
 
 #initialise universe
