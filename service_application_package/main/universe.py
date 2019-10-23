@@ -46,20 +46,21 @@ class Universe():
 
     def move_animals(self):
         for wolf in self.wolves:
+            x = []
             neighbouring_cells = wolf.get_neighbouring_cells()
             neighbouring_elk = [cell for cell in neighbouring_cells if isinstance(cell.contained_animal, Elk)]
             neighbouring_empties = [cell for cell in neighbouring_cells if cell.contained_animal==None]
             if len(neighbouring_elk) == 1:
-                x=wolf.move_to_cell(neighbouring_elk[0])
+                x.append(wolf.move_to_cell(neighbouring_elk[0]))
             elif len(neighbouring_elk) > 1:
                 randomNumber = npr.randint(len(neighbouring_elk))
-                x=wolf.move_to_cell(neighbouring_elk[randomNumber])
+                x.append(wolf.move_to_cell(neighbouring_elk[randomNumber]))
             elif len(neighbouring_empties) != 0:
                 randomNumber = npr.randint(len(neighbouring_empties))
-                x=wolf.move_to_cell(neighbouring_empties[randomNumber])
+                x.append(wolf.move_to_cell(neighbouring_empties[randomNumber]))
             else:
                 pass
-            return x 
+            return wolf.genes
                 
         # for elk in self.elks:
         #     neighbouring_cells = elk.get_neighbouring_cells()

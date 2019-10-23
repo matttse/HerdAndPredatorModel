@@ -3,6 +3,7 @@ import numpy.random as npr
 
 class Wolf(Animal):
     def __init__(self, master, cell):
+        self.genes = []
         Animal.__init__(self, master, 'wolf', cell)
         self.not_eaten_since = 0
 #        self.PROLIFERATE_INTERVAL = 5
@@ -21,7 +22,7 @@ class Wolf(Animal):
         else:
 #            print 'wolf tried to move twice!'
             raise Exception('wolf tried to move twice!')
-        return self.cell.x, self.cell.y
+        return self.genes.append([self.cell.x, self.cell.y])
             
 
     def proliferate(self):
