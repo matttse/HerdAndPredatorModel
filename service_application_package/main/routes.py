@@ -1,6 +1,7 @@
 from flask import render_template, request, Blueprint
 from service_application_package.main.forms import GenerationNumberAndStartForm
-from service_application_package.main.universe import Universe
+from service_application_package.main.animals import Animal
+# from service_application_package.main.universe import Universe
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import io
@@ -18,6 +19,8 @@ def home(numberOfGenerations):
 	return render_template('home.html', numberOfGenerations=form.numberOfGenerations, form=form)
 @main.route("/start")
 def start():
+	matingPool = []
+	
 	# create start function
 	form = GenerationNumberAndStartForm()
 	# img = io.BytesIO()
@@ -43,8 +46,8 @@ def start():
 		    print(keys, '=>', db[keys]) 
 		dbfile.close() 
 	#initialise universe
-	u = Universe(GRID_SIZE, INITIAL_PREDATORS, INITIAL_PREYS)
-	u.move_animals()
+	# u = Universe(GRID_SIZE, INITIAL_PREDATORS, INITIAL_PREYS)
+	# u.move_animals()
 
 	return render_template('geneticModel.html', numberOfGenerations=form.numberOfGenerations, universe=1)
 # def stop():
