@@ -19,9 +19,9 @@ class Universe():
         self.init_cells_and_animals(initial_pred_num, initial_prey_num)
         
     def save_pkl(self): #just for testing purposes, nothing sensible
-        f = open('testpickle.pk', 'wb')
-        pk.dump(self, f, protocol=0)
-        f.close()
+        db = open('vectorFiles', 'ab')
+        pk.dump(self, db)
+        db.close()
         
         
     def init_cells_and_animals(self, initial_pred_num, initial_prey_num):
@@ -60,7 +60,7 @@ class Universe():
                 x.append(wolf.move_to_cell(neighbouring_empties[randomNumber]))
             else:
                 pass
-            return wolf.genes
+            return self.save_pkl()
                 
         # for elk in self.elks:
         #     neighbouring_cells = elk.get_neighbouring_cells()
@@ -71,16 +71,7 @@ class Universe():
         #     else:
         #         pass
             
-            
-    def apply_cheat_modifiers(self):
-        if len(self.wolves) < 5:
-            for pred in self.wolves:
-                pred.MAX_HUNGER = 10000
-        else:
-            for pred in self.wolves:
-                pred.MAX_HUNGER = 6
-            
-            
+ 
     def prepare_next_round(self):
         for pred in self.wolves:
             pred.already_moved = False
@@ -97,11 +88,6 @@ class Universe():
             prey.check_proliferation()
         for prey in self.elk:
             prey.check_death()
-            
-        #this is the cheat to ensure that the equilibrium doesn't stop
-        self.apply_cheat_modifiers()
-        
-        
 
     
     

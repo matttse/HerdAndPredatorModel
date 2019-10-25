@@ -1,14 +1,11 @@
 from flask import render_template, request, Blueprint
 from service_application_package.main.forms import GenerationNumberAndStartForm
-from service_application_package.main.animals import Animal
-from service_application_package.main.elk import Elk
-from service_application_package.main.wolf import Wolf
-from service_application_package.main.cell import Cell
 from service_application_package.main.universe import Universe
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import io
 import base64
+import pickle as pk
 
 main = Blueprint('main', __name__)
 
@@ -38,10 +35,17 @@ def start():
 	GRID_SIZE = 50
 	INITIAL_PREDATORS = 50
 	INITIAL_PREYS = 50
-
+	def loadData(): 
+		# for reading also binary mode is important 
+		dbfile = open('vectorFiles', 'rb')      
+		db = pk.load(dbfile) 
+		for keys in db: 
+		    print(keys, '=>', db[keys]) 
+		dbfile.close() 
 	#initialise universe
 	u = Universe(GRID_SIZE, INITIAL_PREDATORS, INITIAL_PREYS)
+	u.move_animals()
 
-	return render_template('geneticModel.html', numberOfGenerations=form.numberOfGenerations, universe=u.move_animals())
+	return render_template('geneticModel.html', numberOfGenerations=form.numberOfGenerations, universe=1)
 # def stop():
 	# create stop function

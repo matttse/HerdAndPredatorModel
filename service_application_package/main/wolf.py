@@ -4,7 +4,7 @@ import numpy.random as npr
 class Wolf(Animal):
     def __init__(self, master, cell):
         self.genes = []
-        Animal.__init__(self, master, 'wolf', cell)
+        Animal.__init__(self, genes, fitness, master, 'wolf', cell)
         self.not_eaten_since = 0
 #        self.PROLIFERATE_INTERVAL = 5
         

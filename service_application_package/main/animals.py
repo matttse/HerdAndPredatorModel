@@ -1,7 +1,9 @@
 import numpy as np
 
 class Animal:
-	def __init__(self, master, species, cell):
+	def __init__(self, genes, fitness, master, species, cell):
+		self.genes = genes
+		self.fitness = fitness
 		self.MAX_AGE = 20
 		self.MAX_HUNGER = 6
 		self.PROLIFERATE_MIN_AGE = 10
@@ -16,10 +18,10 @@ class Animal:
 		cell.contained_animal = self
 	def die(self):
 	    self.cell.contained_animal = None
-	    if self in self.master.preys:
-	        self.master.preys.remove(self)
-	    elif self in self.master.predators:
-	        self.master.predators.remove(self)
+	    if self in self.master.elk:
+	        self.master.elk.remove(self)
+	    elif self in self.master.wolves:
+	        self.master.wolves.remove(self)
             
 
 	def check_proliferation(self):
