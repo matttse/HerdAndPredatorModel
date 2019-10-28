@@ -187,7 +187,7 @@ class Grid:
                 offspring = agent.update()
                 if offspring != 0:
                     offspring.ID = self.ID
-                    coords = self.getGrassCoords(x, y)
+                    coords = self.getGrassPositions(x, y)
                     if coords != 0:
                         offspring.x = coords[0]
                         offspring.y = coords[1]
@@ -258,7 +258,7 @@ class Grid:
 
         mpld3.show()
 
-    def getGrassCoords(self, x, y):
+    def getGrassPositions(self, x, y):
         availablePositions = []
         for i in [-1, 0, 1]:
             for j in [-1, 0, 1]:
