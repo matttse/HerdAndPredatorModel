@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Oct  6 11:23:11 2018
-
-@author: andrea
-"""
-
 def ExtractInfo(grid):
     import numpy as np
     import pandas as pd

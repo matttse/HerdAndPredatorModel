@@ -20,7 +20,7 @@ def start():
 	# create start function
 	form = GenerationNumberAndStartForm()
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--gridDim', default=50,type = int, help='Size of the grid')
+	parser.add_argument('--gridSize', default=50,type = int, help='Size of the grid')
 	parser.add_argument('--nPredators', default=100,type = int, help='Number of initial predators')
 	parser.add_argument('--nPrey', default=400, type = int, help='Number of initial preys')
 	parser.add_argument('--nGrass', default=1200, type = int, help='Number of initial grass')
@@ -42,8 +42,8 @@ def start():
 	args = parser.parse_args()
 
 
-	xDim = args.gridDim
-	yDim = args.gridDim
+	xDim = args.gridSize
+	yDim = args.gridSize
 	nPredators = args.nPredators
 	nPrey = args.nPrey
 	nGrass = args.nGrass
@@ -116,14 +116,14 @@ def start():
 	for i in grassV:
 	    grassFile.write("%d\n" % i)
 
-	plt.clf()
-	plt.plot(predV, 'r')
-	plt.plot(preyV, 'b')
-	plt.plot(grassV, 'g')
-	plt.pause(0.01)
-	plt.draw()
-	plt.savefig('Distributions.pdf')
-	plt.figure(2)
+	# plt.clf()
+	# plt.plot(predV, 'r')
+	# plt.plot(preyV, 'b')
+	# plt.plot(grassV, 'g')
+	# plt.pause(0.01)
+	# plt.draw()
+	# plt.savefig('Distributions.pdf')
+	# plt.figure(2)
 
 	input('Press any key to exit\n')
 
