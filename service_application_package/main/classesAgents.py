@@ -13,7 +13,7 @@ Created on Tue Nov 21 21:18:38 2017
 from builtins import map
 
 import numpy as np
-from GrassAgent import Grass
+from service_application_package.main.grassAgent import Grass
  
 class Prey :
 

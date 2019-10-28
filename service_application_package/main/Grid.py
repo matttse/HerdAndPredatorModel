@@ -1,8 +1,9 @@
 import random
-from grassAgent import *
-from classesAgents import *
+from service_application_package.main.grassAgent import *
+from service_application_package.main.classesAgents import *
 from matplotlib import pyplot as plt
-
+import numpy as np
+import mpld3
 
 class Grid:
 
@@ -215,28 +216,46 @@ class Grid:
         return [self.numPred, self.numPrey, self.numGrass, preyDeathAvg, predDeathAvg,preyLastAteP,predLastAteP,ratio]
 
     def draw(self):
-        plt.clf()
-        xs = [[], [], []]
-        ys = [[], [], []]
-        for agents in self.agentList:
-            x = agents[1]
-            y = agents[2]
-            type = agents[3]
-            if type == 0:
-                xs[0].append(x)
-                ys[0].append(y)
-            elif type == 1:
-                xs[1].append(x)
-                ys[1].append(y)
-            else:
-                xs[2].append(x)
-                ys[2].append(y)
-        plt.scatter(xs[2], ys[2], color='g')
-        plt.scatter(xs[1], ys[1], color='b')
-        plt.scatter(xs[0], ys[0], color='r')
-        plt.axis([-1, self.xDim, -1, self.yDim])
-        plt.pause(0.01)
-        plt.draw()
+        # plt.clf()
+        # xs = [[], [], []]
+        # ys = [[], [], []]
+        # for agents in self.agentList:
+        #     x = agents[1]
+        #     y = agents[2]
+        #     type = agents[3]
+        #     if type == 0:
+        #         xs[0].append(x)
+        #         ys[0].append(y)
+        #     elif type == 1:
+        #         xs[1].append(x)
+        #         ys[1].append(y)
+        #     else:
+        #         xs[2].append(x)
+        #         ys[2].append(y)
+        # plt.scatter(xs[2], ys[2], color='g')
+        # plt.scatter(xs[1], ys[1], color='b')
+        # plt.scatter(xs[0], ys[0], color='r')
+        # plt.axis([-1, self.xDim, -1, self.yDim])
+        # plt.pause(0.01)
+        # plt.draw()
+        fig, ax = plt.subplots(subplot_kw=dict(axisbg='#EEEEEE'))
+        N = 100
+
+        scatter = ax.scatter(np.random.normal(size=N),
+                             np.random.normal(size=N),
+                             c=np.random.random(size=N),
+                             s=1000 * np.random.random(size=N),
+                             alpha=0.3,
+                             cmap=plt.cm.jet)
+        ax.grid(color='white', linestyle='solid')
+
+        ax.set_title("Scatter Plot (with tooltips!)", size=20)
+
+        labels = ['point {0}'.format(i + 1) for i in range(N)]
+        tooltip = mpld3.plugins.PointLabelTooltip(scatter, labels=labels)
+        mpld3.plugins.connect(fig, tooltip)
+
+        mpld3.show
 
     def getGrassCoords(self, x, y):
         availablePositions = []
