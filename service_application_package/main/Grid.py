@@ -1,6 +1,6 @@
 import random
-from GrassAgent import *
-from Classes_Agents import *
+from grassAgent import *
+from classesAgents import *
 from matplotlib import pyplot as plt
 
 
