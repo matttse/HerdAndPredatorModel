@@ -4,6 +4,8 @@ from service_application_package.main.classesAgents import *
 from matplotlib import pyplot as plt
 import numpy as np
 import mpld3
+# import pickle
+import json
 
 class Grid:
 
@@ -232,31 +234,18 @@ class Grid:
             else:
                 xs[2].append(x)
                 ys[2].append(y)
+        xys = [xs[0],ys[0]]
+        with open('data.json', 'w', encoding='utf-8') as f:
+            json.dump(xys, f, ensure_ascii=False, indent=4)
+
         plt.scatter(xs[2], ys[2], color='g')
         plt.scatter(xs[1], ys[1], color='b')
         plt.scatter(xs[0], ys[0], color='r')
         plt.axis([-1, self.xDim, -1, self.yDim])
+        # fig = plt.figure()
+        # pickle.dump(fig, open('FO','wb'))
         # plt.pause(0.01)
         # plt.draw()
-
-        # x1 = np.random.rand(10)
-        # x2 = np.random.rand(10)
-        # x3 = np.random.rand(10)
-        # x4 = np.random.rand(10)
-        # y1 = np.random.rand(10)
-        # y2 = np.random.rand(10)
-        # y3 = np.random.rand(10)
-        # y4 = np.random.rand(10)
-
-        # figure2, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2)
-        # ax1.plot(x1,y1)
-        # ax2.plot(x2,y2)
-        # ax3.plot(x3,y3)
-        # ax4.plot(x4,y4)
-
-        # mpld3.fig_to_html(figure2)
-
-        mpld3.show()
 
     def getGrassPositions(self, x, y):
         availablePositions = []

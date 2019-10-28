@@ -4,7 +4,9 @@ from service_application_package.main.grid import Grid
 from service_application_package.main.extractInfo import ExtractInfo
 import argparse
 from matplotlib import pyplot as plt
-
+import mpld3
+import pickle
+import json
 main = Blueprint('main', __name__)
 
 @main.route("/")
@@ -36,8 +38,8 @@ def start():
 	parser.add_argument('--mPrey', default=8, type = int)
 	parser.add_argument('--grassRepRate', default=0.02, type = int, help='Probabiliy of giving birth')
 	parser.add_argument('--grassConsRate', default=0.2, type = int, help='How much it gets consumed when eaten')
-	parser.add_argument('--numLearningIterations', default=20, type = int, help='Time in which the agents can learn')
-	parser.add_argument('--totalNumIterations', default=20, type = int)
+	parser.add_argument('--numLearningIterations', default=10, type = int, help='Time in which the agents can learn')
+	parser.add_argument('--totalNumIterations', default=10, type = int)
 
 	args = parser.parse_args()
 
@@ -104,7 +106,10 @@ def start():
 	    [preyDeathAvg, predDeathAvg,preyLastAteP,predLastAteP,ratio] = numAgents[3:]
 	    predLastAteV.append(predLastAteP)
 	    preyLastAteV.append(preyLastAteP)    
-	    ratioV.append(ratio)    
+	    ratioV.append(ratio)
+	    ## read json file here
+	    return render_template('geneticModel.html', numberOfGenerations=form.numberOfGenerations, universe=array)
+
 
 	predFile = open('PredatorList.txt', 'w')
 	for i in predV:
@@ -116,18 +121,22 @@ def start():
 	for i in grassV:
 	    grassFile.write("%d\n" % i)
 
-	# plt.clf()
-	# plt.plot(predV, 'r')
-	# plt.plot(preyV, 'b')
-	# plt.plot(grassV, 'g')
+	plt.clf()
+	plt.plot(predV, 'r')
+	plt.plot(preyV, 'b')
+	plt.plot(grassV, 'g')
 	# plt.pause(0.01)
 	# plt.draw()
 	# plt.savefig('Distributions.pdf')
-	# plt.figure(2)
+	
+	# fig = plt.figure()
 
-	input('Press any key to exit\n')
+	# figx = pickle.load(open('FO', 'rb'))
+	# figx.show() # Show the figure, edit it, etc.!
+	# return render_template('geneticModel.html', numberOfGenerations=form.numberOfGenerations, universe=pickle.load(open('FO', 'rb')))
+	# input('Press any key to exit\n')
 
 
-	return render_template('geneticModel.html', numberOfGenerations=form.numberOfGenerations, universe=1)
+	# return render_template('geneticModel.html', numberOfGenerations=form.numberOfGenerations, universe=1)
 # def stop():
 	# create stop function
