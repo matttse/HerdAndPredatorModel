@@ -235,7 +235,7 @@ class Grid:
                 xs[2].append(x)
                 ys[2].append(y)
         xys = [xs[0],ys[0]]
-        with open('data.json', 'w', encoding='utf-8') as f:
+        with open('service_application_package/static/data.json', 'w', encoding='utf-8') as f:
             json.dump(xys, f, ensure_ascii=False, indent=4)
 
         plt.scatter(xs[2], ys[2], color='g')

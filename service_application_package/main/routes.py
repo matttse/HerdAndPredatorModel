@@ -107,8 +107,7 @@ def start():
 	    predLastAteV.append(predLastAteP)
 	    preyLastAteV.append(preyLastAteP)    
 	    ratioV.append(ratio)
-	    ## read json file here
-	    return render_template('geneticModel.html', numberOfGenerations=form.numberOfGenerations, universe=array)
+
 
 
 	predFile = open('PredatorList.txt', 'w')
@@ -136,7 +135,10 @@ def start():
 	# return render_template('geneticModel.html', numberOfGenerations=form.numberOfGenerations, universe=pickle.load(open('FO', 'rb')))
 	# input('Press any key to exit\n')
 
-
+	    ## read json file here
+	with open('service_application_package/static/data.json', 'w', encoding='utf-8') as f:
+		array = json.load(f)
+	return render_template('geneticModel.html', numberOfGenerations=form.numberOfGenerations, universe=array)
 	# return render_template('geneticModel.html', numberOfGenerations=form.numberOfGenerations, universe=1)
 # def stop():
 	# create stop function
