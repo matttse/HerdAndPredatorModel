@@ -88,7 +88,7 @@ class Grid:
                 predLastAte =predLastAte + agent.lastAte
                 agent.Aging(i)
                 # Moving and learning
-                [newCoordsX, newCoordsY] = agent.Change_Position(self)
+                [newCoordsX, newCoordsY] = agent.updatePosition(self)
                 newCoordsX = int(newCoordsX)
                 newCoordsY = int(newCoordsY)
                 self.grid[x][y].remove(agent)
@@ -100,8 +100,8 @@ class Grid:
                 x = newCoordsX
                 y = newCoordsY
                 if learning:
-                    r=agent.Get_Reward(self)
-                    agent.Update_Weight(r, self, agent.q)
+                    r=agent.getReward(self)
+                    agent.updateWeight(r, self, agent.q)
                 eatenID = agent.Eat(self.grid[x][y])
                 if eatenID != -1:
                     for agents in self.grid[x][y]:
@@ -138,7 +138,7 @@ class Grid:
                 preyLastAte =preyLastAte + agent.lastAte
                 agent.Aging(i)
                 #Monving and learning
-                [newCoordsX, newCoordsY] = agent.Change_Position(self)
+                [newCoordsX, newCoordsY] = agent.updatePosition(self)
                 newCoordsX = int(newCoordsX)
                 newCoordsY = int(newCoordsY)
                 self.grid[x][y].remove(agent)
@@ -150,8 +150,8 @@ class Grid:
                 x = newCoordsX
                 y = newCoordsY
                 if learning:
-                    r=agent.Get_Reward(self)
-                    agent.Update_Weight(r, self, agent.q)
+                    r=agent.getReward(self)
+                    agent.updateWeight(r, self, agent.q)
                 eatenID = agent.Eat(self.grid[x][y])
                 if eatenID != -1:
                     for agents in self.grid[x][y]:
@@ -255,7 +255,7 @@ class Grid:
         # ax4.plot(x4,y4)
 
         # mpld3.fig_to_html(figure2)
-        
+
         mpld3.show()
 
     def getGrassCoords(self, x, y):
