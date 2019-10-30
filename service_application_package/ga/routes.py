@@ -3,7 +3,7 @@ from flask import render_template, request, Blueprint
 from service_application_package.main.forms import GenerationNumberAndStartForm
 import argparse
 from matplotlib import pyplot as plt
-import pyp5js as p5
+from pyp5 import *
 import pickle
 import json
 import math
@@ -20,4 +20,6 @@ def start(numberOfGenerations):
     form = GenerationNumberAndStartForm()
 
     genes.append(np.random.rand(lifeSpan,2))
-    return render_template('geneticModel.html', numberOfGenerations=form.numberOfGenerations, universe=genes)
+    # genes.append(np.linespace(-np.random.))
+    head = Vector(1,1)
+    return render_template('geneticModel.html', numberOfGenerations=form.numberOfGenerations, universe=head)
