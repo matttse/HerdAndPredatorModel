@@ -4,7 +4,6 @@ import numpy as np
 from service_application_package.main.grassAgent import Grass
  
 class Prey :
-
         animalType = -1 #1 if predator, -1 for prey
         age = 0
         epsilon = 0.2
