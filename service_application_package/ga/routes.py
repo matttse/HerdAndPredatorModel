@@ -1,7 +1,7 @@
-from __future__ import division
 from flask import render_template, request, Blueprint
 from service_application_package.main.forms import GenerationNumberAndStartForm
 import argparse
+from service_application_package.ga.grid import Grid
 from matplotlib import pyplot as plt
 # from p5 import *
 import pickle
@@ -9,6 +9,7 @@ import json
 import math
 import numpy as np
 import random as r
+import plotly.express as px
 
 ga = Blueprint('ga', __name__)
 
@@ -18,16 +19,23 @@ lifeSpan = 500
 numberOfAgents = 200
 sizeOfGrid = 1000
 agents = []
-@ga.route("/runGA/<int:numberOfGenerations>")
-def start(numberOfGenerations):
-
+# @ga.route("/runGA/<int:numberOfGenerations>")
+# def start(numberOfGenerations):
+@ga.route("/geneticModel", methods=['GET','POST'])
+def start():
     # create start def
     form = GenerationNumberAndStartForm()
 
-    # genes.append(np.random.rand(lifeSpan,2))
-    # genes.append(np.linespace(-np.random.))
-    for a in range(len(numberOfAgents)):
+    # # genes.append(np.random.rand(lifeSpan,2))
+    # # genes.append(np.linespace(-np.random.))
+    for a in range(0,numberOfAgents):
     	agents.append(genes)
     for b in range(0,lifeSpan):
     	genes.append(r.choice(directions))
-    return render_template('geneticModel.html', numberOfGenerations=form.numberOfGenerations, universe=genes)
+    # Grid.draw()
+    return render_template('geneticModel.html', numberOfGenerations=form.numberOfGenerations, universe=len(agents))
+    
+    # gapminder = px.data.gapminder()
+    # px.scatter(gapminder, x="gdpPercap", y="lifeExp", animation_frame="year", animation_group="country",
+    #            size="pop", color="continent", hover_name="country",
+    #            log_x=True, size_max=55, range_x=[100,100000], range_y=[25,90])

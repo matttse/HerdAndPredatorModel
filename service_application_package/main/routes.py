@@ -4,19 +4,16 @@ from service_application_package.main.grid import Grid
 from service_application_package.main.extractInfo import ExtractInfo
 import argparse
 from matplotlib import pyplot as plt
-import mpld3
-import pickle
-import json
 main = Blueprint('main', __name__)
 
 @main.route("/")
-@main.route("/geneticModel/<int:numberOfGenerations>")
-def home(numberOfGenerations):
+
+def home():
 	
 	form = GenerationNumberAndStartForm()
 
 	return render_template('home.html', numberOfGenerations=form.numberOfGenerations, form=form)
-@main.route("/start")
+@main.route("/reinforcedModel", methods=['GET','POST'])
 def start():
 
 	# create start function
@@ -124,21 +121,18 @@ def start():
 	plt.plot(predV, 'r')
 	plt.plot(preyV, 'b')
 	plt.plot(grassV, 'g')
-	# plt.pause(0.01)
-	# plt.draw()
-	# plt.savefig('Distributions.pdf')
+	plt.pause(0.01)
+	plt.draw()
+	plt.savefig('Distributions.pdf')
 	
 	# fig = plt.figure()
 
 	# figx = pickle.load(open('FO', 'rb'))
 	# figx.show() # Show the figure, edit it, etc.!
 	# return render_template('geneticModel.html', numberOfGenerations=form.numberOfGenerations, universe=pickle.load(open('FO', 'rb')))
-	# input('Press any key to exit\n')
+	input('Press any key to exit\n')
 
-	    ## read json file here
-	with open('service_application_package/static/data.json', 'w', encoding='utf-8') as f:
-		array = json.load(f)
-	return render_template('reinforcedModel.html', numberOfGenerations=form.numberOfGenerations, universe=array)
+	return render_template('reinforcedModel.html', numberOfGenerations=form.numberOfGenerations, universe=1)
 	# return render_template('geneticModel.html', numberOfGenerations=form.numberOfGenerations, universe=1)
 # def stop():
 	# create stop function

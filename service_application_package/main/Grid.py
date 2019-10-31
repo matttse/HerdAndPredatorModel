@@ -3,9 +3,6 @@ from service_application_package.main.grassAgent import *
 from service_application_package.main.classesAgents import *
 from matplotlib import pyplot as plt
 import numpy as np
-import mpld3
-# import pickle
-import json
 
 class Grid:
 
@@ -235,17 +232,13 @@ class Grid:
                 xs[2].append(x)
                 ys[2].append(y)
         xys = [xs[0],ys[0]]
-        with open('service_application_package/static/data.json', 'w', encoding='utf-8') as f:
-            json.dump(xys, f, ensure_ascii=False, indent=4)
 
         plt.scatter(xs[2], ys[2], color='g')
         plt.scatter(xs[1], ys[1], color='b')
         plt.scatter(xs[0], ys[0], color='r')
         plt.axis([-1, self.xDim, -1, self.yDim])
-        # fig = plt.figure()
-        # pickle.dump(fig, open('FO','wb'))
-        # plt.pause(0.01)
-        # plt.draw()
+        plt.pause(0.01)
+        plt.draw()
 
     def getGrassPositions(self, x, y):
         availablePositions = []
