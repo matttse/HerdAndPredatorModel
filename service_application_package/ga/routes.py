@@ -10,7 +10,7 @@ import math
 import numpy as np
 import random as r
 import plotly.express as px
-
+import plotly.tools as tls
 ga = Blueprint('ga', __name__)
 
 directions = [[-1,1],[0,1],[1,1],[-1,0],[0,0],[0,1],[-1,-1],[0,-1],[1,-1]]
@@ -35,7 +35,11 @@ def start():
     # Grid.draw()
     return render_template('geneticModel.html', numberOfGenerations=form.numberOfGenerations, universe=len(agents))
     
-    # gapminder = px.data.gapminder()
-    # px.scatter(gapminder, x="gdpPercap", y="lifeExp", animation_frame="year", animation_group="country",
-    #            size="pop", color="continent", hover_name="country",
-    #            log_x=True, size_max=55, range_x=[100,100000], range_y=[25,90])
+@ga.route("/other", methods=['GET','POST'])
+def other():
+	# tls.get_embed('https://plot.ly/~chris/1638')
+    gapminder = px.data.gapminder()
+    fig = px.scatter(gapminder, x="gdpPercap", y="lifeExp", animation_frame="year", animation_group="country",
+               size="pop", color="continent", hover_name="country",
+               log_x=True, size_max=55, range_x=[100,100000], range_y=[25,90])
+    return render_template('animation.html', show=fig.show())
