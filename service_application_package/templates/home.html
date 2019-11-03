@@ -1,58 +1,67 @@
 {% extends "layout.html" %}
 {% block content %}
-<div id="canvascontainer"></div>
-
-<div id="home-content" class="container my-auto mx-auto py-3 px-1">
-
-	<div class="container mx-auto my-auto py-1 px-1">
-		<div id="home-content" class="container my-auto mx-auto py-3 px-1">
-		    <form action="{{ url_for('main.start') }}" class="form" method='POST'>
-		       <fieldset class="form-group">
+	<div id="canvascontainer"></div>
+	<div id="home-content" class="container my-auto mx-auto py-3 px-1">
+		<div class="container mx-auto my-auto py-1 px-1">
+			<div id="home-content" class="container my-auto mx-auto py-3 px-1">
+				<form action="{{ url_for('main.start') }}" class="form" method='POST'>
+					<fieldset class="form-group">
 						<div class="form-group">
-						    number of generations to run:
-
-						    {% if form.numberOfGenerations.errors %}
-						        {{ form.numberOfGenerations(class="form-control form-control-lg is-invalid") }}
-						        <div class="invalid-feedback">
-						            {% for error in form.numberOfGenerations.errors %}
-						                <span>{{ error }}</span>
-						            {% endfor %}
-						        </div>
-						    {% else %}
-						        {{ form.numberOfGenerations(class="form-control form-control-lg") }}
-						    {% endif %}
+							number of generations to run:
+							{% if form.numberOfGenerations.errors %}
+								{{ form.numberOfGenerations(class="form-control form-control-lg is-invalid") }}
+								<div class="invalid-feedback">
+									{% for error in form.numberOfGenerations.errors %}
+										<span>{{ error }}</span>
+									{% endfor %}
+								</div>
+							{% else %}
+								{{ form.numberOfGenerations(class="form-control form-control-lg") }}
+							{% endif %}
 						</div>
 					</fieldset>
-		        <input type="submit" class="btn btn-success" value="RF Start">
-		    </form>
-		</div>
-		<div id="home-content" class="container my-auto mx-auto py-3 px-1">
-		   <form action="{{ url_for('ga.start') }}" class="form" method='POST'>
-		       <fieldset class="form-group">
+					<input type="submit" class="btn btn-success" value="RF Start">
+				</form>
+			</div>
+			<div id="home-content" class="container my-auto mx-auto py-3 px-1">
+				<form action="{{ url_for('ga.start') }}" class="form" method='POST'>
+					<fieldset class="form-group">
 						<div class="form-group">
-						    number of generations to run:
-
-						    {% if form.numberOfGenerations.errors %}
-						        {{ form.numberOfGenerations(class="form-control form-control-lg is-invalid") }}
-						        <div class="invalid-feedback">
-						            {% for error in form.numberOfGenerations.errors %}
-						                <span>{{ error }}</span>
-						            {% endfor %}
-						        </div>
-						    {% else %}
-						        {{ form.numberOfGenerations(class="form-control form-control-lg") }}
-						    {% endif %}
+							number of generations to run:
+							{% if form.numberOfGenerations.errors %}
+								{{ form.numberOfGenerations(class="form-control form-control-lg is-invalid") }}
+								<div class="invalid-feedback">
+									{% for error in form.numberOfGenerations.errors %}
+										<span>{{ error }}</span>
+									{% endfor %}
+								</div>
+							{% else %}
+								{{ form.numberOfGenerations(class="form-control form-control-lg") }}
+							{% endif %}
 						</div>
 					</fieldset>
-		        <input type="submit" class="btn btn-success" value="GA Start">
-		    </form>
-
-
+					<input type="submit" class="btn btn-success" value="GA Start">
+				</form>
+			</div>
+			<form action="{{ url_for('ga.other') }}" class="form" method='POST'>
+				<fieldset class="form-group">
+					<div class="form-group">
+						number of generations to run:
+						{% if form.numberOfGenerations.errors %}
+							{{ form.numberOfGenerations(class="form-control form-control-lg is-invalid") }}
+							<div class="invalid-feedback">
+								{% for error in form.numberOfGenerations.errors %}
+									<span>{{ error }}</span>
+								{% endfor %}
+							</div>
+						{% else %}
+							{{ form.numberOfGenerations(class="form-control form-control-lg") }}
+						{% endif %}
+					</div>
+				</fieldset>
+				<input type="submit" class="btn btn-success" value="Other Start">
+			</form>
+			
 		</div>
 	</div>
-
-
-</div>
 {% endblock content %}
-
-

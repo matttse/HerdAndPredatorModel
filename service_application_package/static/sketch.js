@@ -1,101 +1,70 @@
-// Daniel Shiffman
-// Nature of Code: Intelligence and Learning
-// https://github.com/shiffman/NOC-S17-2-Intelligence-Learning
+var preysAmount = $("#numberOfGenerations").val();
+var theGrassAmount = 70;
+var watersAmount = 70;
+var poisonsAmount = 50;
 
-// Evolutionary "Steering Behavior" Simulation
+var spawnBorder = 40;
 
-// An array of vehicles
-var population = [];
+var drawPerception=true;
 
-// An array of "food"
-var food = [];
-// An array of "poison"
-var poison = [];
+var mutationRate = 0.05;
+var preys = [];
+var foods = [];
+var maxMult = 5;
+var maxPerc = 200;
 
-// How good is food, how bad is poison?
-var nutrition = [0.1, -1];
-
-// Show additional info on DNA?
-var debug;
+var maxspeed = 3.5;
+var maxTurnForce = 0.15;
 
 function setup() {
-
-  // Add canvas and grab checkbox
-  var canvas = createCanvas(800, 600);
-  canvas.parent('canvascontainer');
-  debug = select('#debug');
-
-
-  // Create 10 vehicles
-  angleMode(RADIANS);
-  for (var i = 0; i < 10; i++) {
-    population[i] = new Vehicle(width / 2, height / 2);
-  }
-  // Start with some food
-  for (var i = 0; i < 10; i++) {
-    food[i] = createVector(random(width), random(height));
-  }
-  // Start with some poison
-  for (var i = 0; i < 5; i++) {
-    poison[i] = createVector(random(width), random(height));
-  }
-}
-
-// Add new vehicles by dragging mouse
-function mouseDragged() {
-  population.push(new Vehicle(mouseX, mouseY));
+	createCanvas(windowWidth,windowHeight);
+	
+	addPreys(preysAmount);
+	resetResources();
 }
 
 function draw() {
-  background(0);
+	background(51);
 
-  // 10% chance of new food
-  if (random(1) < 0.1) {
-    food.push(createVector(random(width), random(height)));
-  }
+	drawInfo();
 
-  // 1% chance of new poison
-  if (random(1) < 0.01) {
-    poison.push(createVector(random(width), random(height)));
-  }
+	updatePreys();
+	drawPreys();
 
-  // Go through all vehicles
-  for (var i = population.length - 1; i >= 0; i--) {
-    var v = population[i];
+	drawFoods();
+	drawPoisons();
+	drawWaters();
 
-    // Eat the food (index 0)
-    v.eat(food, 0);
-    // Eat the poison (index 1)
-    v.eat(poison, 1);
-    // Check boundaries
-    v.boundaries();
+	resupplyResources();
 
-    // Update and draw
-    v.update();
-    v.display();
+	populate();
+}
 
-    // If the vehicle has died, remove
-    if (v.dead()) {
-      population.splice(i, 1);
-    } else {
-      // Every vehicle has a chance of cloning itself
-      var child = v.birth();
-      if (child != null) {
-        population.push(child);
-      }
-    }
-  }
+function mousePressed() { drawPerception = !drawPerception; }
+function keyPressed() { if (keyCode===32) { noLoop(); } }
 
-  // Draw all the food and all the poison
-  for (var i = 0; i < food.length; i++) {
-    fill(0, 255, 0);
-    noStroke();
-    ellipse(food[i].x, food[i].y, 4);
-  }
+function drawInfo() {
+	var preysAlive = countAlive();
+	fill(0, 102, 153);
+	textSize(32);
+	text(preysAlive, 10, 40);
+	text(floor(frameRate()), width-50, 40);
 
-  for (var i = 0; i < poison.length; i++) {
-    fill(255, 0, 0);
-    noStroke();
-    ellipse(poison[i].x, poison[i].y, 4);
-  }
+	var w = width/preysAlive;
+	var h = 15;
+	var ii=0;
+	for(var i=0; i<preys.length; i++) {
+		var v = preys[i];
+		if (v.dead==false) {
+			var health = map(v.health, 0, 1, 0, w);
+			var thirst = map(v.thirst, 0, 1, 0, w);
+
+			fill(0,255,0, 50); 	rect(ii*w, (height-3*h), w*0.95, h);
+			fill(0,255,0); 		rect(ii*w, (height-3*h), health*0.95, h);
+			fill(0,0,255, 50);	rect(ii*w, (height-1.5*h), w*0.95, h);
+			fill(0,0,255);	rect(ii*w, (height-1.5*h), thirst*0.95, h);
+			ii++;
+		}
+		
+	}
 }
