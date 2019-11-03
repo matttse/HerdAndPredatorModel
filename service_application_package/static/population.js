@@ -4,17 +4,18 @@ function populate() {
 	var tickets = [];
 	if (countAlive()<=0) {
 		
-		var oldPopulation = vehicles.slice(0);
-		vehicles = [];
+		var oldPreyPopulation = preys.slice(0);
+		preys = [];
 
-		for(var i=0; i<oldPopulation.length; i++) {
-			var v=oldPopulation[i];
+		for(var i=0; i<oldPreyPopulation.length; i++) {
+			var v=oldPreyPopulation[i];
 			for (var j=0; j<(v.fitness); j++) { tickets.push(i); }
 		}
 		console.log(tickets.length);
 		
-		for(var i=0; i<vehiclesAmount; i++) {
-			var v = addVehicle();
+		for(var i=0; i<preysAmount; i++) {
+			var v = addPreys();
+			console.log(v);
 			if (random()>mutationRate) { v.dna.grassMult = randomParent().dna.grassMult; }
 			if (random()>mutationRate) { v.dna.grassPerc = randomParent().dna.grassPerc; }
 			if (random()>mutationRate) { v.dna.poisonMult = randomParent().dna.poisonMult; }
@@ -27,7 +28,7 @@ function populate() {
 	}
 	function randomParent() {
 		var j = tickets[floor(random(tickets.length))]
-		return oldPopulation[j];
+		return oldPreyPopulation[j];
 	}
 }
 

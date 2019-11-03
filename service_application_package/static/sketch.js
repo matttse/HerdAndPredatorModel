@@ -9,7 +9,7 @@ var drawPerception=true;
 
 var mutationRate = 0.05;
 var preys = [];
-var foods = [];
+var predators = [];
 var maxMult = 5;
 var maxPerc = 200;
 
@@ -31,7 +31,7 @@ function draw() {
 	updatePreys();
 	drawPreys();
 
-	drawFoods();
+	drawGrasses();
 	drawPoisons();
 	drawWaters();
 

@@ -12,8 +12,8 @@ function preyClass() {
 //random(0.3, 0.4);
 
 	this.dna = {
-		foodMult: random(-maxMult,maxMult),
-		foodPerc: random(0,maxPerc),
+		grassMult: random(-maxMult,maxMult),
+		grassPerc: random(0,maxPerc),
 		poisonMult: random(-maxMult,maxMult),
 		poisonPerc: random(0,maxPerc),
 		waterMult: random(-maxMult,maxMult),
@@ -51,12 +51,12 @@ function preyClass() {
 		return steer;
 	}
 
-	this.behaviour = function(foodList, poisonList, waterList) {
-		var steer1 = this.eat(foodList, this.dna.foodPerc, 0.05, 0.01);
+	this.behaviour = function(grassList, poisonList, waterList) {
+		var steer1 = this.eat(grassList, this.dna.grassPerc, 0.05, 0.01);
 		var steer2 = this.eat(poisonList, this.dna.poisonPerc, -0.34, -0.05);
 		var steer3 = this.eat(waterList, this.dna.waterPerc, 0, -0.05);
 
-		steer1.mult(this.dna.foodMult);
+		steer1.mult(this.dna.grassMult);
 		steer2.mult(this.dna.poisonMult);
 		steer3.mult(this.dna.waterMult);
 
@@ -102,9 +102,9 @@ function preyClass() {
 	}
 
 	this.limit = function() {
-		if(this.dna.foodMult>maxMult) { this.dna.foodMult=maxMult; }
-		else if(this.dna.foodMult<-maxMult) { this.dna.foodMult=-maxMult; }
-		if(this.dna.foodPerc>maxPerc) { this.dna.foodPerc=maxPerc; }
+		if(this.dna.grassMult>maxMult) { this.dna.grassMult=maxMult; }
+		else if(this.dna.grassMult<-maxMult) { this.dna.grassMult=-maxMult; }
+		if(this.dna.grassPerc>maxPerc) { this.dna.grassPerc=maxPerc; }
 
 		if(this.dna.poisonMult>maxMult) { this.dna.poisonMult=maxMult; }
 		else if(this.dna.poisonMult<-maxMult) { this.dna.poisonMult=-maxMult; }
@@ -125,7 +125,7 @@ function preyClass() {
 		    if(drawPerception==true && this.dead==false) {
 		    	noFill(); 
 		    	stroke(0, 255, 0, 80);
-			    ellipse(0, 0, this.dna.foodPerc*2, this.dna.foodPerc*2);
+			    ellipse(0, 0, this.dna.grassPerc*2, this.dna.grassPerc*2);
 			    stroke(255, 0, 0, 80);
 			    ellipse(0, 0, this.dna.poisonPerc*2, this.dna.poisonPerc*2);
 			    stroke(0, 0, 255, 80);

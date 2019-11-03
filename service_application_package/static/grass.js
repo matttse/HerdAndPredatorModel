@@ -1,4 +1,4 @@
-
+var grasses = [];
 function grassClass() {
 	this.pos = createVector(random(spawnBorder, width-spawnBorder), random(spawnBorder, height-spawnBorder));
 
@@ -14,14 +14,14 @@ function addGrasses(n) {
 }
 function addGrass() {
 	var grass = new grassClass();
-	grasss.push(grass);
+	grasses.push(grass);
 	return grass;
 }
 
 function drawGrasses() {
 	fill(50, 255, 50);
 	noStroke();
-	for(var i=0; i<grasss.length; i++) {
-		grasss[i].draw();
+	for(var i=0; i<grasses.length; i++) {
+		grasses[i].draw();
 	}
 }
