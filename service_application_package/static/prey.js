@@ -1,4 +1,4 @@
-var preys = [];
+// var preys = [];
 function preyClass(dna) {
 	this.pos = createVector(random(spawnBorder, width-spawnBorder), random(spawnBorder, height-spawnBorder));
 	this.vel = createVector(random(-2, 2), random(-2, 2));
@@ -146,6 +146,37 @@ function preyClass(dna) {
 			    vertex(this.r, this.r*2);
 		    endShape(CLOSE);
 	    pop();
+	}
+
+	//fitness scoring
+	this.getFitness = function() {
+		//closer to target == better fitness
+		var distance = dist(this.position.x, this.position.y, target.x, target.y);
+		//1 == best fitness score possible i.e. we hit the target
+		// this.fitness = (1 / distance);
+		this.fitness = map(distance, 0, width, width, 0);//mapping the distance, inverted distance val
+		//just rewarding the fit rockets
+		if (this.touching) {
+			this.fitness *= 10;//boost fitness scores
+			if (this.elapsedTime < 2000) {
+				this.fitness *= (10^3);//boost fitness scores
+			} else if (this.elapsedTime < 1000) {
+				this.fitness *= (10^4);//boost fitness scores
+			} else if (this.elapsedTime < 500) {
+				this.fitness *= (10^5);//boost fitness scores
+			} else if (this.elapsedTime < 100) {
+				this.fitness *= (10^6);//boost fitness scores
+			}
+		}
+		if (this.collision) {
+			if (this.border) {
+				this.fitness /= 100;
+			} else if (this.obstacle) {
+				this.fitness /= 5;
+			}
+			
+		}
+		
 	}
 }
 

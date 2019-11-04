@@ -1,5 +1,6 @@
 var preysAmount = $("#numberOfGenerations").val();
 var numberOfGenerations = $("#numberOfGenerations").val();
+
 var theGrassAmount = 70;
 var watersAmount = 70;
 var poisonsAmount = 50;
@@ -8,18 +9,13 @@ var spawnBorder = 40;
 
 var drawPerception=true;
 
-var mutationRate = 0.05;
 
 var predators = [];
-var maxMult = 5;
-var maxPerc = 200;
 
-var maxspeed = 3.5;
-var maxTurnForce = 0.15;
 var generationCounter = 0;
 function setup() {
 	createCanvas(windowWidth,windowHeight);
-	
+	population = new populate();
 	addPreys(preysAmount);
 	resetResources();
 }
@@ -28,18 +24,21 @@ function draw() {
 	background(51);
 
 	drawInfo();
+	population.run();
+
 	generationCounter++;
 	if (generationCounter == numberOfGenerations) {
-		updatePreys();
-		drawPreys();
-		console.log(preys);
-		drawGrasses();
-		drawPoisons();
-		drawWaters();
+		population.eval();
+		population.natSelection();
+		// updatePreys();
+		// drawPreys();
+		// console.log(preys);
+		// drawGrasses();
+		// drawPoisons();
+		// drawWaters();
 
-		resupplyResources();
-
-		populate();
+		// resupplyResources();
+		// populate();
 	}
 	
 }
@@ -77,29 +76,79 @@ function drawInfo() {
 
 function populate() {
 	var tickets = [];
+	
+	this.matingPool = [];
+
 	if (countAlive()<=0) {
 		
 		var oldPreyPopulation = preys.slice(0);
-		preys = [];
-
+		
+		//populate prey
 		for(var i=0; i<oldPreyPopulation.length; i++) {
 			var v=oldPreyPopulation[i];
 			for (var j=0; j<(v.fitness); j++) { tickets.push(i); }
 		}
 		console.log(tickets.length);
-		
-		for(var i=0; i<preysAmount; i++) {
-			var v = addPreys();
-			console.log(v);
-			if (random()>mutationRate) { v.dna.grassMult = randomParent().dna.grassMult; }
-			if (random()>mutationRate) { v.dna.grassPerc = randomParent().dna.grassPerc; }
-			if (random()>mutationRate) { v.dna.poisonMult = randomParent().dna.poisonMult; }
-			if (random()>mutationRate) { v.dna.poisonPerc = randomParent().dna.poisonPerc; }
-			if (random()>mutationRate) { v.dna.waterMult = randomParent().dna.waterMult; }
-			if (random()>mutationRate) { v.dna.waterPerc = randomParent().dna.waterPerc; }
-			v.limit();
+		this.eval = function() {
+			var maximumFitness = 0;
+
+			for (var r = 0; r < this.preysAmount; r++) {
+				this.preys[r].getFitness()
+				if (this.preys[r].fitness > 0) {
+					maximumFitness = this.preys[i].fitness
+				}
+			}
+
+			for (var r = 0; r < this.preysAmount; r++) {
+				if (maximumFitness != 0) {
+					this.pres[r].fitness /= maximumFitness;
+				}
+			}
+
+			for (var r = 0; r < this.preysAmount; r++) {
+				if (this.preys[r].fitness > 0) {
+					var n = this.preys[r].fitness = 100//normalization
+					for (var s = 0; s < n; s++) {
+						this.matingPool.push(this.preys[r]);//add favorable genes to matingPool
+					}
+				}
+			}
 		}
+		// for(var i=0; i<preysAmount; i++) {
+		// 	var v = addPreys();
+		// 	console.log(v);
+		// 	if (random()>mutationRate) { v.dna.grassMult = randomParent().dna.grassMult; }
+		// 	if (random()>mutationRate) { v.dna.grassPerc = randomParent().dna.grassPerc; }
+		// 	if (random()>mutationRate) { v.dna.poisonMult = randomParent().dna.poisonMult; }
+		// 	if (random()>mutationRate) { v.dna.poisonPerc = randomParent().dna.poisonPerc; }
+		// 	if (random()>mutationRate) { v.dna.waterMult = randomParent().dna.waterMult; }
+		// 	if (random()>mutationRate) { v.dna.waterPerc = randomParent().dna.waterPerc; }
+		// 	v.limit();
+		// }
 		resetResources();
+		generationCounter++;
+	}
+
+	this.run = function() {
+		updatePreys();
+		drawPreys();
+		console.log(generationCounter);
+		drawGrasses();
+		drawPoisons();
+		drawWaters();
+
+		resupplyResources();
+	}
+	this.natSelection = function() {
+		var babyPrey = [];
+		for (var i = 0; i < this.preys.length; i++) {
+			var parentOne = random(this.matingPool).dna;//allowed via p5 library, picks random index for us given array
+			var parentTwo = random(this.matingPool).dna;//does not account for the parents being the same**
+			var child = parentOne.mating(parentTwo);//lets make a baby/child
+			child.mutation();//adds in variability
+			babyPrey[i] = new Prey(child);//new prey is born
+		}
+		this.preys = babyPrey;//we have a new generation set
 	}
 	function randomParent() {
 		var j = tickets[floor(random(tickets.length))]

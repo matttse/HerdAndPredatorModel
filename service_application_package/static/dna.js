@@ -1,13 +1,27 @@
+var preyLifeSpan = 200;
+var maxMult = 5;
+var maxPerc = 200;
+
+var mutationRate = 0.05;
+var maxspeed = 3.5;
+var maxTurnForce = 0.15;
+var preys = [];
 function DNA(genes) {
 	if (genes) {
 		this.genes = genes;
 	} else {
-		this.genes = []//new random DNA
-		for (var i = 0; i < genes.length; i++) {
-			this.genes[i] = p5.Vector.random2D();//random vector
-			this.genes[i].setMag(0.2)//inherent speed
+		// this.genes = []//new random DNA
+		// for (var i = 0; i < preyLifeSpan; i++) {
+			// this.genes[i] = p5.Vector.random2D();//random vector
+			// this.genes[i].setMag(0.2)//inherent speed
+			this.genes = { grassMult: random(-maxMult,maxMult),
+			grassPerc: random(0,maxPerc),
+			poisonMult: random(-maxMult,maxMult),
+			poisonPerc: random(0,maxPerc),
+			waterMult: random(-maxMult,maxMult),
+			waterPerc: random(0,maxPerc)}
 
-		}
+		// }
 	}
 
 	this.mating = function(mate) {
