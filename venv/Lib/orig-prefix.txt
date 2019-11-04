@@ -1,1 +1,1 @@
-c:\program files (x86)\python37-32
+c:\program files (x86)\microsoft visual studio\shared\python37_64
