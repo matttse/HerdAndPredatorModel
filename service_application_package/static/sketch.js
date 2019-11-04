@@ -1,5 +1,5 @@
 var preysAmount = $("#numberOfGenerations").val();
-var numberOfGenerations = $("#numberOfGenerations").val();
+var numberOfGenerations = 500;
 
 var theGrassAmount = 70;
 var watersAmount = 70;
@@ -8,8 +8,8 @@ var poisonsAmount = 50;
 var spawnBorder = 40;
 
 var drawPerception=true;
-
-
+var count = 0;
+var allCreatures = []
 var predators = [];
 
 var generationCounter = 0;
@@ -26,20 +26,53 @@ function draw() {
 	drawInfo();
 	population.run();
 
-	generationCounter++;
-	if (generationCounter == numberOfGenerations) {
+	
+	drawGrasses();
+	drawPoisons();
+	drawWaters();
+	count++;
+	if (count == numberOfGenerations) {
 		population.eval();
 		population.natSelection();
-		// updatePreys();
-		// drawPreys();
-		// console.log(preys);
-		// drawGrasses();
-		// drawPoisons();
-		// drawWaters();
+		count = 0;
+	// 	// updatePreys();
+	// 	// drawPreys();
+	// 	// console.log(preys);
+	// 	// drawGrasses();
+	// 	// drawPoisons();
+	// 	// drawWaters();
 
-		// resupplyResources();
-		// populate();
+	// 	// resupplyResources();
+	// 	// populate();
 	}
+
+	// resupplyResources();
+	// Go through all vehicles
+	// for (var i = allCreatures.length - 1; i >= 0; i--) {
+	// 	var v = allCreatures[i];
+
+	// 	// Eat the food (index 0)
+	// 	v.eat(food, 0);
+	// 	// Eat the poison (index 1)
+	// 	v.eat(poison, 1);
+	// 	// Check boundaries
+	// 	v.boundaries();
+
+	// 	// Update and draw
+	// 	v.update();
+	// 	v.display();
+
+	// 	// If the vehicle has died, remove
+	// 	if (v.dead()) {
+	// 	  allCreatures.splice(i, 1);
+	// 	} else {
+	// 	  // Every vehicle has a chance of cloning itself
+	// 	  var child = v.birth();
+	// 	  if (child != null) {
+	// 	    allCreatures.push(child);
+	// 	  }
+	// 	}
+	// }
 	
 }
 
@@ -117,12 +150,12 @@ function populate() {
 		// for(var i=0; i<preysAmount; i++) {
 		// 	var v = addPreys();
 		// 	console.log(v);
-		// 	if (random()>mutationRate) { v.dna.grassMult = randomParent().dna.grassMult; }
-		// 	if (random()>mutationRate) { v.dna.grassPerc = randomParent().dna.grassPerc; }
-		// 	if (random()>mutationRate) { v.dna.poisonMult = randomParent().dna.poisonMult; }
-		// 	if (random()>mutationRate) { v.dna.poisonPerc = randomParent().dna.poisonPerc; }
-		// 	if (random()>mutationRate) { v.dna.waterMult = randomParent().dna.waterMult; }
-		// 	if (random()>mutationRate) { v.dna.waterPerc = randomParent().dna.waterPerc; }
+		// 	// if (random()>mutationRate) { v.dna.grassMult = randomParent().dna.grassMult; }
+		// 	// if (random()>mutationRate) { v.dna.grassPerc = randomParent().dna.grassPerc; }
+		// 	// if (random()>mutationRate) { v.dna.poisonMult = randomParent().dna.poisonMult; }
+		// 	// if (random()>mutationRate) { v.dna.poisonPerc = randomParent().dna.poisonPerc; }
+		// 	// if (random()>mutationRate) { v.dna.waterMult = randomParent().dna.waterMult; }
+		// 	// if (random()>mutationRate) { v.dna.waterPerc = randomParent().dna.waterPerc; }
 		// 	v.limit();
 		// }
 		resetResources();
@@ -133,11 +166,9 @@ function populate() {
 		updatePreys();
 		drawPreys();
 		console.log(generationCounter);
-		drawGrasses();
-		drawPoisons();
-		drawWaters();
+		
 
-		resupplyResources();
+		
 	}
 	this.natSelection = function() {
 		var babyPrey = [];
