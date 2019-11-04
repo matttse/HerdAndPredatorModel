@@ -1,5 +1,5 @@
-
-function preyClass() {
+var preys = [];
+function preyClass(dna) {
 	this.pos = createVector(random(spawnBorder, width-spawnBorder), random(spawnBorder, height-spawnBorder));
 	this.vel = createVector(random(-2, 2), random(-2, 2));
 	this.acc = createVector();
@@ -9,16 +9,21 @@ function preyClass() {
 	this.dead = false;
 	this.health = 1;
 	this.thirst = 0;
-//random(0.3, 0.4);
-
-	this.dna = {
-		grassMult: random(-maxMult,maxMult),
-		grassPerc: random(0,maxPerc),
-		poisonMult: random(-maxMult,maxMult),
-		poisonPerc: random(0,maxPerc),
-		waterMult: random(-maxMult,maxMult),
-		waterPerc: random(0,maxPerc)
+	//existing DNA
+	if (dna) {
+		this.dna = dna;
+	} else {
+		// this.dna = {
+		// 	grassMult: random(-maxMult,maxMult),
+		// 	grassPerc: random(0,maxPerc),
+		// 	poisonMult: random(-maxMult,maxMult),
+		// 	poisonPerc: random(0,maxPerc),
+		// 	waterMult: random(-maxMult,maxMult),
+		// 	waterPerc: random(0,maxPerc)
+		// }
+		this.dna = new DNA();
 	}
+
 	
 	this.eat = function(list, perception, lifeGain, thirstGain) {
 		var record = Infinity;
@@ -153,6 +158,7 @@ function addPreys(n) {
 }
 function addPrey(){
 	var prey = new preyClass();
+
 	preys.push(prey);
 	return prey;
 }
