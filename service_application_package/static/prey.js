@@ -84,18 +84,18 @@ function preyClass(dna) {
 		return steer;
 	}
 
-	this.behaviour = function(grassList, poisonList, waterList) {
+	this.behaviour = function(grassList, poisonList) {
 		var steer1 = this.eat(grassList, this.dna.grassPerc, 0.05, 0.01);
 		var steer2 = this.eat(poisonList, this.dna.poisonPerc, -0.34, -0.05);
-		var steer3 = this.eat(waterList, this.dna.waterPerc, 0, -0.05);
+		// var steer3 = this.eat(waterList, this.dna.waterPerc, 0, -0.05);
 
 		steer1.mult(this.dna.grassMult);
 		steer2.mult(this.dna.poisonMult);
-		steer3.mult(this.dna.waterMult);
+		// steer3.mult(this.dna.waterMult);
 
 		this.acc.add(steer1);
 		this.acc.add(steer2);
-		this.acc.add(steer3);
+		// this.acc.add(steer3);
 	}
 
 	this.boundaries = function() {
@@ -229,10 +229,10 @@ function drawPreys() {
 	}
 }
 function updatePreys() {
-	//var factors = [theGrass, poisons];
+	var factors = [grasses, poisons];
 
 	for(var i=0; i<preys.length; i++) {
-		preys[i].behaviour(theGrass, poisons, waters);
+		preys[i].behaviour(grasses, poisons);
 		preys[i].update();
 	}
 
