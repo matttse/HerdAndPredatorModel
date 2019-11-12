@@ -1,8 +1,8 @@
-var maxMult = 5;
+var maxMult = 0.5;
 var maxPerc = 200;
 
-var maxspeed = 3.5;
-var maxTurnForce = 0.15;
+var maxspeed = 0.35;
+var maxTurnForce = 0.015;
 function preyClass(dna) {
 	this.pos = createVector(random(spawnBorder, width-spawnBorder), random(spawnBorder, height-spawnBorder));
 	this.vel = createVector(random(-2, 2), random(-2, 2));
@@ -18,8 +18,7 @@ function preyClass(dna) {
 		grassPerc: random(0,maxPerc),
 		poisonMult: random(-maxMult,maxMult),
 		poisonPerc: random(0,maxPerc),
-		waterMult: random(-maxMult,maxMult),
-		waterPerc: random(0,maxPerc)
+		
 	}
 	//existing DNA
 	// if (dna) {

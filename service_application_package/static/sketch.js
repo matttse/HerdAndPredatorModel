@@ -15,9 +15,7 @@ var predators = [];
 var generationCounter = 0;
 function setup() {
 	createCanvas(windowWidth,windowHeight);
-	population = new populate();
-	// prey = new preyClass();
-	
+	population = new populate();	
 	addPreys(preysAmount);
 	resetResources();
 }
