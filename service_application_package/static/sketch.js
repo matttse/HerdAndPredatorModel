@@ -1,9 +1,9 @@
 var preysAmount = 15;
 var numberOfGenerations = $("#numberOfGenerations").val();
 
-var grassAmount = 70;
-var watersAmount = 70;
-var poisonsAmount = 50;
+var grassAmount = 30;
+var watersAmount = 30;
+var poisonsAmount = 10;
 
 var spawnBorder = 40;
 
@@ -16,34 +16,14 @@ var generationCounter = 0;
 function setup() {
 	createCanvas(windowWidth,windowHeight);
 	population = new populate();
-	prey = new preyClass();
-	// resetResources();
+	// prey = new preyClass();
+	
+	addPreys(preysAmount);
+	resetResources();
 }
 
 function draw() {
 	background(51);
-
-	drawInfo();
-	population.run();
-
-	
-	drawGrasses();
-	drawPoisons();
-	drawWaters();
-	count++;
-	if (count == numberOfGenerations) {
-		population.eval();
-		population.natSelection();
-		count = 0;
-	}
-
-	
-}
-
-function mousePressed() { drawPerception = !drawPerception; }
-function keyPressed() { if (keyCode===32) { noLoop(); } }
-
-function drawInfo() {
 	var preysAlive = countAlive();
 	fill(0, 102, 153);
 	textSize(32);
@@ -53,7 +33,6 @@ function drawInfo() {
 	var w = width/preysAlive;
 	var h = 15;
 	var ii=0;
-
 	for(var i=0; i<preys.length; i++) {
 		var v = preys[i];
 		if (v.dead==false) {
@@ -68,43 +47,61 @@ function drawInfo() {
 		}
 		
 	}
+
+	// population.run();
+	count++;
+	if (count == numberOfGenerations) {
+		updatePreys();
+		drawPreys();	
+		drawGrasses();
+		drawPoisons();
+		
+		resupplyResources();
+		population.run();
+		population.eval();
+		population.natSelection();
+		count = 0;
+	}
+
+	
 }
 
+function mousePressed() { drawPerception = !drawPerception; }
+function keyPressed() { if (keyCode===32) { noLoop(); } }
 
 
 function populate() {
-	var tickets = [];
-	// this.preys = [];
 	this.matingPool = [];
-
+	var tickets = [];
 	this.eval = function() {
 		var maximumFitness = 0;
 
-		for (var r = 0; r < this.preysAmount; r++) {
-			this.tickets[r].getFitness()
-			if (this.tickets[r].fitness > 0) {
-				maximumFitness = this.tickets[i].fitness
+		for (var r = 0; r < preysAmount; r++) {
+			tickets[r].getFitness()
+			if (tickets[r].fitness > 0) {
+				maximumFitness = tickets[i].fitness
 			}
 		}
 
-		for (var r = 0; r < this.preysAmount; r++) {
+		for (var r = 0; r < preysAmount; r++) {
 			if (maximumFitness != 0) {
 				this.pres[r].fitness /= maximumFitness;
 			}
 		}
 
-		for (var r = 0; r < this.preysAmount; r++) {
-			if (this.tickets[r].fitness > 0) {
-				var n = this.tickets[r].fitness = 100//normalization
+		for (var r = 0; r < preysAmount; r++) {
+			if (tickets[r].fitness > 0) {
+				var n = tickets[r].fitness = 100//normalization
 				for (var s = 0; s < n; s++) {
-					this.matingPool.push(this.tickets[r]);//add favorable genes to matingPool
+					this.matingPool.push(tickets[r]);//add favorable genes to matingPool
 				}
 			}
 		}
 	}
 	this.run = function() {
+		
 		if (countAlive()<=0) {
-
+			
 			var oldPopulation = preys.slice(0);
 			preys = [];
 
@@ -113,33 +110,9 @@ function populate() {
 				for (var j=0; j<(v.fitness); j++) { tickets.push(i); }
 			}
 			console.log(tickets.length);
-
+			
 			for(var i=0; i<preysAmount; i++) {
 				var v = addPrey();
-				// if (random()>mutationRate) { v.dna.grassMult = randomParent().dna.grassMult; }
-				// if (random()>mutationRate) { v.dna.grassPerc = randomParent().dna.grassPerc; }
-				// if (random()>mutationRate) { v.dna.poisonMult = randomParent().dna.poisonMult; }
-				// if (random()>mutationRate) { v.dna.poisonPerc = randomParent().dna.poisonPerc; }
-				// if (random()>mutationRate) { v.dna.waterMult = randomParent().dna.waterMult; }
-				// if (random()>mutationRate) { v.dna.waterPerc = randomParent().dna.waterPerc; }
-				v.limit();
-			}
-			generationCounter++;
-		}
-		var tickets = [];
-		if (countAlive()<=0) {
-			
-			var oldPopulation = preys.slice(0);
-			preys = [];
-
-			for(var i=0; i<oldPopulation.length; i++) {
-				var v=oldPopulation[i];
-				for (var j=0; j<(v.fitness); j++) { tickets.push(i); }
-			}
-			console.log(tickets.length);
-			
-			for(var i=0; i<preysAmount; i++) {
-				var v = addVehicle();
 				if (random()>mutationRate) { v.dna.foodMult = randomParent().dna.foodMult; }
 				if (random()>mutationRate) { v.dna.foodPerc = randomParent().dna.foodPerc; }
 				if (random()>mutationRate) { v.dna.poisonMult = randomParent().dna.poisonMult; }
@@ -154,26 +127,19 @@ function populate() {
 			var j = tickets[floor(random(tickets.length))]
 			return oldPopulation[j];
 		}
-		console.log(generationCounter);	
-
-		
 	}
 	this.natSelection = function() {
-		console.log('tickets'+tickets.length);
+		
 		var babyPrey = [];
 		for (var i = 0; i < tickets.length; i++) {
-			var parentOne = random(this.matingPool).dna;//allowed via p5 library, picks random index for us given array
-			var parentTwo = random(this.matingPool).dna;//does not account for the parents being the same**
+			var parentOne = random(matingPool).dna;//allowed via p5 library, picks random index for us given array
+			var parentTwo = random(matingPool).dna;//does not account for the parents being the same**
 			var child = parentOne.mating(parentTwo);//lets make a baby/child
 			child.mutation();//adds in variability
 			babyPrey[i] = new Prey(child);//new prey is born
 		}
 		tickets = babyPrey;//we have a new generation set
 	}
-	// function randomParent() {
-	// 	var j = tickets[floor(random(tickets.length))]
-	// 	return oldPreyPopulation[j];
-	// }
 }
 
 
