@@ -1,4 +1,8 @@
-// var preys = [];
+var maxMult = 5;
+var maxPerc = 200;
+
+var maxspeed = 3.5;
+var maxTurnForce = 0.15;
 function preyClass(dna) {
 	this.pos = createVector(random(spawnBorder, width-spawnBorder), random(spawnBorder, height-spawnBorder));
 	this.vel = createVector(random(-2, 2), random(-2, 2));
@@ -9,6 +13,14 @@ function preyClass(dna) {
 	this.dead = false;
 	this.health = 1;
 	this.thirst = 0;
+	this.dna = {
+		grassMult: random(-maxMult,maxMult),
+		grassPerc: random(0,maxPerc),
+		poisonMult: random(-maxMult,maxMult),
+		poisonPerc: random(0,maxPerc),
+		waterMult: random(-maxMult,maxMult),
+		waterPerc: random(0,maxPerc)
+	}
 	//existing DNA
 	// if (dna) {
 	// 	this.dna = dna;
@@ -24,34 +36,34 @@ function preyClass(dna) {
 	// 	this.dna = new DNA();
 	// }
 	// Did it receive DNA to copy?
-	if (dna instanceof Array) {
-		this.dna = [];
-		// Copy all the DNA
-		for (var i = 0; i < dna.length; i++) {
-		  // 10% chance of mutation
-		  if (random(1) < 0.1) {
-		    if (i < 2) {
-		      // Adjust steering force weights
-		      this.dna[i] = dna[i] + random(-0.2, 0.2);
+	// if (dna instanceof Array) {
+	// 	this.dna = [];
+	// 	// Copy all the DNA
+	// 	for (var i = 0; i < dna.length; i++) {
+	// 	  // 10% chance of mutation
+	// 	  if (random(1) < 0.1) {
+	// 	    if (i < 2) {
+	// 	      // Adjust steering force weights
+	// 	      this.dna[i] = dna[i] + random(-0.2, 0.2);
 
-		    } else {
-		      // Adjust perception radius
-		      this.dna[i] = dna[i] + random(-10, 10);
-		    }
-		    // Copy DNA
-		  } else {
-		    this.dna[i] = dna[i];
-		  }
-		}
-		} else {
-		var maxf = 3;
-		// DNA
-		// 0: Attraction/Repulsion to food
-		// 1: Attraction/Repulsion to poison
-		// 2: Radius to sense food
-		// 3: Radius to sense poison
-		this.dna = [random(-maxf, maxf), random(-maxf, maxf), random(5, 100), random(5, 100)];
-	}
+	// 	    } else {
+	// 	      // Adjust perception radius
+	// 	      this.dna[i] = dna[i] + random(-10, 10);
+	// 	    }
+	// 	    // Copy DNA
+	// 	  } else {
+	// 	    this.dna[i] = dna[i];
+	// 	  }
+	// 	}
+	// 	} else {
+	// 	var maxf = 3;
+	// 	// DNA
+	// 	// 0: Attraction/Repulsion to food
+	// 	// 1: Attraction/Repulsion to poison
+	// 	// 2: Radius to sense food
+	// 	// 3: Radius to sense poison
+	// 	this.dna = [random(-maxf, maxf), random(-maxf, maxf), random(5, 100), random(5, 100)];
+	// }
 	
 	this.eat = function(list, perception, lifeGain, thirstGain) {
 		var record = Infinity;

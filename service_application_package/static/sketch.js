@@ -47,10 +47,8 @@ function draw() {
 		}
 		
 	}
-
-	// population.run();
 	count++;
-	if (count == numberOfGenerations) {
+	// if (count == numberOfGenerations) {
 		updatePreys();
 		drawPreys();	
 		drawGrasses();
@@ -58,10 +56,10 @@ function draw() {
 		
 		resupplyResources();
 		population.run();
-		population.eval();
-		population.natSelection();
+		// population.eval();
+		// population.natSelection();
 		count = 0;
-	}
+	// }
 
 	
 }
