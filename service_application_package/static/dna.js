@@ -1,10 +1,9 @@
 var preyLifeSpan = 200;
-var maxMult = 5;
-var maxPerc = 200;
+var maxMult = 0.05;
+var maxPerc = 2;
 
-var mutationRate = 0.05;
-var maxspeed = 3.5;
-var maxTurnForce = 0.15;
+var maxspeed = 0.0035;
+var maxTurnForce = 0.0015;
 var preys = [];
 function DNA(genes) {
 	if (genes) {

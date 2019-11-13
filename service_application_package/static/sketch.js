@@ -1,16 +1,15 @@
-var preysAmount = 15;
-var numberOfGenerations = $("#numberOfGenerations").val();
+var preysAmount = 1;
+var numberOfGenerations = 5;//$("#numberOfGenerations").val();
 
-var grassAmount = 30;
-var watersAmount = 30;
-var poisonsAmount = 10;
+var grassAmount = 3;
+var watersAmount = 3;
+var poisonsAmount = 1;
 
 var spawnBorder = 40;
 
 var drawPerception=true;
 var count = 0;
-var allCreatures = []
-var predators = [];
+var mutationRate = 0.5;
 
 var generationCounter = 0;
 function setup() {
@@ -46,18 +45,26 @@ function draw() {
 		
 	}
 	count++;
-	// if (count == numberOfGenerations) {
-		updatePreys();
+	// addPreys(preysAmount);
+	// resetResources();
+	// updatePreys();//controls movement
+	// drawPreys();	
+	// drawGrasses();
+	// drawPoisons();
+	for (var i = numberOfGenerations - 1; i >= 0; i--) {
+
+		// addPreys(preysAmount);
+		// resetResources();
+		updatePreys();//controls movement
 		drawPreys();	
 		drawGrasses();
 		drawPoisons();
-		
 		resupplyResources();
 		population.run();
 		// population.eval();
 		// population.natSelection();
-		count = 0;
-	// }
+		// count = 0;
+	}
 
 	
 }
@@ -113,8 +120,6 @@ function populate() {
 				if (random()>mutationRate) { v.dna.foodPerc = randomParent().dna.foodPerc; }
 				if (random()>mutationRate) { v.dna.poisonMult = randomParent().dna.poisonMult; }
 				if (random()>mutationRate) { v.dna.poisonPerc = randomParent().dna.poisonPerc; }
-				if (random()>mutationRate) { v.dna.waterMult = randomParent().dna.waterMult; }
-				if (random()>mutationRate) { v.dna.waterPerc = randomParent().dna.waterPerc; }
 				v.limit();
 			}
 			resetResources();

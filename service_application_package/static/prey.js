@@ -1,13 +1,15 @@
-var maxMult = 0.5;
-var maxPerc = 200;
+var maxMult = 0.05;
+var maxPerc = 2;
 
-var maxspeed = 0.35;
-var maxTurnForce = 0.015;
+var maxspeed = 3.5;
+var maxTurnForce = 2.5;
+var preys = [];
 function preyClass(dna) {
 	this.pos = createVector(random(spawnBorder, width-spawnBorder), random(spawnBorder, height-spawnBorder));
 	this.vel = createVector(random(-2, 2), random(-2, 2));
+
 	this.acc = createVector();
-	this.r = 6;
+	this.shape = 6;
 
 	this.fitness = 0;
 	this.dead = false;
@@ -69,7 +71,7 @@ function preyClass(dna) {
 		var closest = null;
 		for(var i=list.length-1; i>=0; i--) {
 			var d = this.pos.dist(list[i].pos);
-			if (d<this.r*2) {
+			if (d<this.shape*2) {
 				list.splice(i, 1);
 				this.addHealth(lifeGain);
 				this.addThirst(thirstGain);
@@ -172,17 +174,17 @@ function preyClass(dna) {
 			    ellipse(0, 0, this.dna.grassPerc*2, this.dna.grassPerc*2);
 			    stroke(255, 0, 0, 80);
 			    ellipse(0, 0, this.dna.poisonPerc*2, this.dna.poisonPerc*2);
-			    stroke(0, 0, 255, 80);
-			    ellipse(0, 0, this.dna.waterPerc*2, this.dna.waterPerc*2);
+			    // stroke(0, 0, 255, 80);
+			    // ellipse(0, 0, this.dna.waterPerc*2, this.dna.waterPerc*2);
 		    }
 
 		    rotate(this.vel.heading()+PI/2);
 
 			fill(col); stroke(col);
 		    beginShape();
-			    vertex(0, -this.r*2);
-			    vertex(-this.r, this.r*2);
-			    vertex(this.r, this.r*2);
+			    vertex(0, -this.shape*2);
+			    vertex(-this.shape, this.shape*2);
+			    vertex(this.shape, this.shape*2);
 		    endShape(CLOSE);
 	    pop();
 	}
