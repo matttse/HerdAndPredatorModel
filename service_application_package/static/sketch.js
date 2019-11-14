@@ -17,6 +17,8 @@ function setup() {
 	population = new populate();	
 	addPreys(preysAmount);
 	resetResources();
+	console.log(generationCounter);
+	
 }
 
 function draw() {
@@ -25,8 +27,8 @@ function draw() {
 	fill(0, 102, 153);
 	textSize(32);
 	text(preysAlive, 10, 40);
-	text(floor(frameRate()), width-50, 40);
-
+	// text(floor(frameRate()), width-50, 40);
+	
 	var w = width/preysAlive;
 	var h = 15;
 	var ii=0;
@@ -47,8 +49,6 @@ function draw() {
 
 	// for (var i = numberOfGenerations - 1; i >= 0; i--) {
 
-		// addPreys(preysAmount);
-		// resetResources();
 		updatePreys();//controls movement
 		drawPreys();	
 		drawGrasses();
@@ -58,8 +58,8 @@ function draw() {
 		// population.eval();
 		// population.natSelection();
 	// }
-
 	
+	generationCounter++;
 }
 
 function mousePressed() { drawPerception = !drawPerception; }
@@ -105,8 +105,8 @@ function populate() {
 				var v=oldPopulation[i];
 				for (var j=0; j<(v.fitness); j++) { tickets.push(i); }
 			}
-			console.log(tickets.length);
-			
+			// console.log(tickets.length);
+			//natural selection
 			for(var i=0; i<preysAmount; i++) {
 				var v = addPrey();
 				if (random()>mutationRate) { v.dna.foodMult = randomParent().dna.foodMult; }
@@ -145,12 +145,12 @@ function resetResources() {
 	grass = []; poisons = []; waters = [];
 	addGrasses(grassAmount);
 	addPoisons(poisonsAmount);
-	addWaters(watersAmount);
+	
 }
 
 function resupplyResources() {
 	if (grass.length<grassAmount) { addGrasses(grassAmount-grass.length); }
 	if (poisons.length<poisonsAmount) { addPoisons(poisonsAmount-poisons.length); }
-	if (waters.length<watersAmount) { addWaters(watersAmount-waters.length); }
+	
 }
 
