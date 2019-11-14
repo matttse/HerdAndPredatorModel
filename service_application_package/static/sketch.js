@@ -1,15 +1,14 @@
-var preysAmount = 15;
+var preysAmount = $("#numberOfPrey").val();//15;
 var numberOfGenerations = $("#numberOfGenerations").val();
 
-var grassAmount = 40;
-var watersAmount = 3;
-var poisonsAmount = 5;
+var grassAmount = $("#amountOfGrass").val();//40;
+var poisonsAmount = $("#amountOfPoison").val();//5;
 
 var spawnBorder = 40;
 
 var drawPerception=true;
 var count = 0;
-var mutationRate = 0.5;
+var mutationRate = $("#mutationRate").val();//0.5;
 
 var generationCounter = 0;
 function setup() {
@@ -62,8 +61,14 @@ function draw() {
 	generationCounter++;
 }
 
-function mousePressed() { drawPerception = !drawPerception; }
-function keyPressed() { if (keyCode===32) { noLoop(); } }
+function mousePressed() {
+	drawPerception = !drawPerception;
+}
+function keyPressed() {
+	if (keyCode===32) {
+		noLoop();
+	}
+}
 
 
 function populate() {
@@ -103,9 +108,11 @@ function populate() {
 
 			for(var i=0; i<oldPopulation.length; i++) {
 				var v=oldPopulation[i];
-				for (var j=0; j<(v.fitness); j++) { tickets.push(i); }
+				for (var j=0; j<(v.fitness); j++) {
+					tickets.push(i);
+				}
 			}
-			// console.log(tickets.length);
+			
 			//natural selection
 			for(var i=0; i<preysAmount; i++) {
 				var v = addPrey();
@@ -138,7 +145,9 @@ function populate() {
 
 
 function limit(x, limit) {
-	if (x>limit) { x=limit;	}
+	if (x>limit) {
+		x=limit;	
+	}
 }
 
 function resetResources() {
@@ -149,8 +158,12 @@ function resetResources() {
 }
 
 function resupplyResources() {
-	if (grass.length<grassAmount) { addGrasses(grassAmount-grass.length); }
-	if (poisons.length<poisonsAmount) { addPoisons(poisonsAmount-poisons.length); }
+	if (grass.length<grassAmount) {
+		addGrasses(grassAmount-grass.length);
+	}
+	if (poisons.length<poisonsAmount) {
+		addPoisons(poisonsAmount-poisons.length); 
+	}
 	
 }
 

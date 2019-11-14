@@ -5,4 +5,8 @@ from wtforms import SubmitField, IntegerField
 
 class GenerationNumberAndStartForm(FlaskForm):
     numberOfGenerations = IntegerField(default=100)
+    numberOfPrey = IntegerField(default=15)
+    amountOfGrass = IntegerField(default=100)
+    amountOfPoison = IntegerField(default=5)
+    mutationRate = IntegerField(default=0.5)
     start = SubmitField('Start Generating')

@@ -37,7 +37,13 @@ def start():
     for b in range(0,lifeSpan):
     	genes.append(r.choice(directions))
     # Grid.draw()
-    return render_template('geneticModel.html', numberOfGenerations=form.numberOfGenerations, universe=len(agents))
+    return render_template('geneticModel.html',
+        numberOfGenerations=form.numberOfGenerations,
+        numberOfPrey=form.numberOfPrey,
+        amountOfGrass=form.amountOfGrass,
+        amountOfPoison=form.amountOfPoison,
+        mutationRate=form.mutationRate
+        )
     
 @ga.route("/other", methods=['GET','POST'])
 def other():

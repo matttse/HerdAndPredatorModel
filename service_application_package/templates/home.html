@@ -38,6 +38,50 @@
 							{% else %}
 								{{ form.numberOfGenerations(class="form-control form-control-lg") }}
 							{% endif %}
+							amount of grazers:
+							{% if form.numberOfPrey.errors %}
+								{{ form.numberOfPrey(class="form-control form-control-lg is-invalid") }}
+								<div class="invalid-feedback">
+									{% for error in form.numberOfPrey.errors %}
+										<span>{{ error }}</span>
+									{% endfor %}
+								</div>
+							{% else %}
+								{{ form.numberOfPrey(class="form-control form-control-lg") }}
+							{% endif %}
+							amount of grass:
+							{% if form.amountOfGrass.errors %}
+								{{ form.amountOfGrass(class="form-control form-control-lg is-invalid") }}
+								<div class="invalid-feedback">
+									{% for error in form.amountOfGrass.errors %}
+										<span>{{ error }}</span>
+									{% endfor %}
+								</div>
+							{% else %}
+								{{ form.amountOfGrass(class="form-control form-control-lg") }}
+							{% endif %}
+							amount of poison:
+							{% if form.amountOfPoison.errors %}
+								{{ form.amountOfPoison(class="form-control form-control-lg is-invalid") }}
+								<div class="invalid-feedback">
+									{% for error in form.amountOfPoison.errors %}
+										<span>{{ error }}</span>
+									{% endfor %}
+								</div>
+							{% else %}
+								{{ form.amountOfPoison(class="form-control form-control-lg") }}
+							{% endif %}
+							mutation rate:
+							{% if form.mutationRate.errors %}
+								{{ form.mutationRate(class="form-control form-control-lg is-invalid") }}
+								<div class="invalid-feedback">
+									{% for error in form.mutationRate.errors %}
+										<span>{{ error }}</span>
+									{% endfor %}
+								</div>
+							{% else %}
+								{{ form.mutationRate(class="form-control form-control-lg") }}
+							{% endif %}
 						</div>
 					</fieldset>
 					<input type="submit" class="btn btn-success" value="GA Start">
@@ -57,6 +101,7 @@
 						{% else %}
 							{{ form.numberOfGenerations(class="form-control form-control-lg") }}
 						{% endif %}
+						
 					</div>
 				</fieldset>
 				<input type="submit" class="btn btn-success" value="Other Start">
