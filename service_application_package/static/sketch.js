@@ -1,5 +1,5 @@
-var preysAmount = 1;
-var numberOfGenerations = 5;//$("#numberOfGenerations").val();
+var preysAmount = 15;
+var numberOfGenerations = $("#numberOfGenerations").val();
 
 var grassAmount = 3;
 var watersAmount = 3;
@@ -44,14 +44,8 @@ function draw() {
 		}
 		
 	}
-	count++;
-	// addPreys(preysAmount);
-	// resetResources();
-	// updatePreys();//controls movement
-	// drawPreys();	
-	// drawGrasses();
-	// drawPoisons();
-	for (var i = numberOfGenerations - 1; i >= 0; i--) {
+
+	// for (var i = numberOfGenerations - 1; i >= 0; i--) {
 
 		// addPreys(preysAmount);
 		// resetResources();
@@ -59,12 +53,11 @@ function draw() {
 		drawPreys();	
 		drawGrasses();
 		drawPoisons();
-		resupplyResources();
+		// resupplyResources();
 		population.run();
 		// population.eval();
 		// population.natSelection();
-		// count = 0;
-	}
+	// }
 
 	
 }

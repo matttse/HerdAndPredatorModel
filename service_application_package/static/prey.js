@@ -1,11 +1,12 @@
-var maxMult = 0.05;
-var maxPerc = 2;
+var maxMult = 0.5;
+var maxPerc = 200;
 
 var maxspeed = 3.5;
 var maxTurnForce = 2.5;
 var preys = [];
 function preyClass(dna) {
-	this.pos = createVector(random(spawnBorder, width-spawnBorder), random(spawnBorder, height-spawnBorder));
+	// this.pos = createVector(random(spawnBorder, width-spawnBorder), random(spawnBorder, height-spawnBorder));
+	this.pos = createVector(width/2,height);
 	this.vel = createVector(random(-2, 2), random(-2, 2));
 
 	this.acc = createVector();
