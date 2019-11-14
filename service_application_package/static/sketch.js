@@ -115,12 +115,20 @@ function populate() {
 			
 			//natural selection
 			for(var i=0; i<preysAmount; i++) {
-				var v = addPrey();
-				if (random()>mutationRate) { v.dna.foodMult = randomParent().dna.foodMult; }
-				if (random()>mutationRate) { v.dna.foodPerc = randomParent().dna.foodPerc; }
-				if (random()>mutationRate) { v.dna.poisonMult = randomParent().dna.poisonMult; }
-				if (random()>mutationRate) { v.dna.poisonPerc = randomParent().dna.poisonPerc; }
-				v.limit();
+				var preyOffspring = addPrey();
+				if (random()>mutationRate) {
+					preyOffspring.dna.foodMult = randomParent().dna.foodMult;
+				}
+				if (random()>mutationRate) {
+					preyOffspring.dna.foodPerc = randomParent().dna.foodPerc;
+				}
+				if (random()>mutationRate) {
+					preyOffspring.dna.poisonMult = randomParent().dna.poisonMult; 
+				}
+				if (random()>mutationRate) { 
+					preyOffspring.dna.poisonPerc = randomParent().dna.poisonPerc;
+				}
+				preyOffspring.limit();
 			}
 			resetResources();
 		}
