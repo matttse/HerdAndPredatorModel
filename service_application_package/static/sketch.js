@@ -1,9 +1,9 @@
 var preysAmount = 15;
 var numberOfGenerations = $("#numberOfGenerations").val();
 
-var grassAmount = 3;
+var grassAmount = 40;
 var watersAmount = 3;
-var poisonsAmount = 1;
+var poisonsAmount = 5;
 
 var spawnBorder = 40;
 
