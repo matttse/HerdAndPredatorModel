@@ -151,7 +151,7 @@ function limit(x, limit) {
 }
 
 function resetResources() {
-	grass = []; poisons = []; waters = [];
+	grass = []; poisons = [];
 	addGrasses(grassAmount);
 	addPoisons(poisonsAmount);
 	
