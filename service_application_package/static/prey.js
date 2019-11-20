@@ -10,7 +10,7 @@ function preyClass(dna) {
 	this.vel = createVector(random(-2, 2), random(-2, 2));
 
 	this.acc = createVector();
-	this.shape = 6;
+	this.shape = 3;
 
 	this.fitness = 0;
 	this.dead = false;
@@ -23,49 +23,7 @@ function preyClass(dna) {
 		poisonPerc: random(0,maxPerc),
 		
 	}
-	//existing DNA
-	// if (dna) {
-	// 	this.dna = dna;
-	// } else {
-	// 	// this.dna = {
-	// 	// 	grassMult: random(-maxMult,maxMult),
-	// 	// 	grassPerc: random(0,maxPerc),
-	// 	// 	poisonMult: random(-maxMult,maxMult),
-	// 	// 	poisonPerc: random(0,maxPerc),
-	// 	// 	waterMult: random(-maxMult,maxMult),
-	// 	// 	waterPerc: random(0,maxPerc)
-	// 	// }
-	// 	this.dna = new DNA();
-	// }
-	// Did it receive DNA to copy?
-	// if (dna instanceof Array) {
-	// 	this.dna = [];
-	// 	// Copy all the DNA
-	// 	for (var i = 0; i < dna.length; i++) {
-	// 	  // 10% chance of mutation
-	// 	  if (random(1) < 0.1) {
-	// 	    if (i < 2) {
-	// 	      // Adjust steering force weights
-	// 	      this.dna[i] = dna[i] + random(-0.2, 0.2);
-
-	// 	    } else {
-	// 	      // Adjust perception radius
-	// 	      this.dna[i] = dna[i] + random(-10, 10);
-	// 	    }
-	// 	    // Copy DNA
-	// 	  } else {
-	// 	    this.dna[i] = dna[i];
-	// 	  }
-	// 	}
-	// 	} else {
-	// 	var maxf = 3;
-	// 	// DNA
-	// 	// 0: Attraction/Repulsion to food
-	// 	// 1: Attraction/Repulsion to poison
-	// 	// 2: Radius to sense food
-	// 	// 3: Radius to sense poison
-	// 	this.dna = [random(-maxf, maxf), random(-maxf, maxf), random(5, 100), random(5, 100)];
-	// }
+	
 	
 	this.eat = function(list, perception, lifeGain, thirstGain) {
 		var record = Infinity;
@@ -101,15 +59,15 @@ function preyClass(dna) {
 	this.behaviour = function(grassList, poisonList) {
 		var steer1 = this.eat(grassList, this.dna.grassPerc, 0.05, 0.01);
 		var steer2 = this.eat(poisonList, this.dna.poisonPerc, -0.34, -0.05);
-		// var steer3 = this.eat(waterList, this.dna.waterPerc, 0, -0.05);
+		
 
 		steer1.mult(this.dna.grassMult);
 		steer2.mult(this.dna.poisonMult);
-		// steer3.mult(this.dna.waterMult);
+		
 
 		this.acc.add(steer1);
 		this.acc.add(steer2);
-		// this.acc.add(steer3);
+
 	}
 
 	this.boundaries = function() {
@@ -175,8 +133,7 @@ function preyClass(dna) {
 			    ellipse(0, 0, this.dna.grassPerc*2, this.dna.grassPerc*2);
 			    stroke(255, 0, 0, 80);
 			    ellipse(0, 0, this.dna.poisonPerc*2, this.dna.poisonPerc*2);
-			    // stroke(0, 0, 255, 80);
-			    // ellipse(0, 0, this.dna.waterPerc*2, this.dna.waterPerc*2);
+			    
 		    }
 
 		    rotate(this.vel.heading()+PI/2);
@@ -257,7 +214,7 @@ function killPreys() {
 		var v = preys[i];
 		if (v.health<=0) {
 			v.dead = true;
-			//preys.splice(i, 1);
+			
 		}
 
 	}
